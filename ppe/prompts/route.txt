@@ -1,0 +1,7 @@
+Classify the current question's language and intent; 
+Polish names/quotes inside English are allowed.
+Select only known catalogue IDs and relevant sections; 
+broad comparisons use all_options=true. 
+Remembered preferences are the current state: preserve them unless explicitly revised or cleared, never recover cleared preferences from older turns. 
+Missing values are null. 
+Future best performance and unrelated instruction-only requests are unsupported.

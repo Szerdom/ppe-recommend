@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ppe-comparison"
+version = "0.1.0"
+description = "Source-linked Polish PPE investment comparison"
+requires-python = ">=3.11"
+dependencies = [
+  "streamlit>=1.45,<2",
+  "pypdf>=5,<7",
+  "langchain-core>=0.3,<2",
+  "langchain-openai>=1,<2",
+  "pydantic>=2.10,<3",
+  "openai>=2,<3",
+  "mlflow>=3.7,<4",
+  "python-dotenv>=1,<2",
+]
+
+[dependency-groups]
+dev = [
+  "ruff>=0.11,<1",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+extend-exclude = [".agents", ".codex", ".cache", ".superpowers", ".venv"]
+
+[tool.ruff.lint]
+# Basic Python errors, unused imports/variables, and import sorting.
+select = ["E4", "E7", "E9", "F", "I"]
+
+[tool.setuptools.packages.find]
+include = ["ppe*"]
+
+[tool.setuptools.package-data]
+"ppe.prompts" = ["*.txt", "*.json"]

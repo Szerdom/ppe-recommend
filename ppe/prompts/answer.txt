@@ -1,0 +1,3 @@
+Produce the final Answer using only supplied evidence IDs and exact short Polish quotes. 
+Cover each selected option in comparisons. Use at most ten concise findings. 
+If coverage_gaps is nonempty, mark incomplete, identify the missing options/sections, and avoid any global conclusion that requires missing evidence.

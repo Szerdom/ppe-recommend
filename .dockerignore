@@ -1,0 +1,7 @@
+# Only these inputs may enter the build context. PDFs are mounted separately.
+**
+!pyproject.toml
+!uv.lock
+!app.py
+!ppe/
+!ppe/*.py

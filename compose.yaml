@@ -1,0 +1,37 @@
+services:
+  mlflow:
+    build: .
+    working_dir: /data
+    command: >-
+      mlflow server --host 0.0.0.0 --port 5000
+      --backend-store-uri sqlite:////data/mlflow.db
+      --artifacts-destination /data/mlartifacts
+      --allowed-hosts "mlflow,mlflow:5000,localhost,localhost:*,127.0.0.1,127.0.0.1:*"
+    ports:
+      - "127.0.0.1:5001:5000"
+    volumes:
+      - mlflow-data:/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      start_period: 30s
+      retries: 3
+
+  app:
+    build: .
+    # Tracing is optional: the app starts even when MLflow is unhealthy.
+    depends_on:
+      mlflow:
+        condition: service_started
+    env_file: .env
+    environment:
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+      PPE_PDF_DIR: /app/info/KID
+    ports:
+      - "127.0.0.1:8502:8501"
+    volumes:
+      - ./info/KID:/app/info/KID:ro
+
+volumes:
+  mlflow-data:
